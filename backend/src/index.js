@@ -28,7 +28,10 @@ initializeSocket(httpServer);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://advance-realtime-spotify.onrender.com"
+        : "http://localhost:3000",
     credentials: true,
   }),
 );
@@ -72,9 +75,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.use((req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "../frontend/dist/index.html")
-    );
+    res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
   });
 }
 
