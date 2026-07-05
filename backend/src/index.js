@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { clerkMiddleware } from "@clerk/express";
+import webhookRoutes from "./routes/webhook.route.js";
 import filesUpload from "express-fileupload";
 import path from "path";
 import userRoutes from "./routes/user.route.js";
@@ -70,6 +71,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/songs", songsRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statsRoutes);
+app.use("/api/webhooks", webhookRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
